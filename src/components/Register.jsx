@@ -2,37 +2,54 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
+import { RegisteredToast } from "./RegisteredToast";
 
 export const Register = () => {
     const navigate = useNavigate();
+    const [showToast, setShowToast] = useState(false);
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         password: ""
     });
+    const [error, setError] = useState("");
 
     const handleOnChange = (e) => {
         setFormData({
             ...formData,
             [e.target.name]: e.target.value
-        })
-    }
+        });
+    };
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
+
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+            setError("Please fill in all the fields");
+            return;
+        }
+
         axios
             .post("http://localhost:5000/register", formData)
             .then((response) => {
-                navigate("/signin");
+                setShowToast(true);
+                setTimeout(() => {
+                    setShowToast(false);
+                    navigate("/signIn");
+                }, 3000);
             })
             .catch((err) => console.log(err));
-    }
+    };
+
+    const handleCloseToast = () => {
+        setShowToast(false);
+    };
 
     return (
         <>
             <RegisterIntroContainer>
-                <Logo src="./glasslogo.png"></Logo>
+                <Logo src="./glasslogo.png" />
                 <RegisterTitle>Register Here</RegisterTitle>
             </RegisterIntroContainer>
             <RegisterForm onSubmit={handleOnSubmit}>
@@ -62,12 +79,14 @@ export const Register = () => {
                 />
                 <RegisterButton type="submit">Create Account</RegisterButton>
             </RegisterForm>
-            <RegisterPar>Already have an account?
-                <LoginLink to="/signin">Sign In</LoginLink>
+            <RegisterPar>
+                Already have an account? <LoginLink to="/signin">Sign In</LoginLink>
             </RegisterPar>
+            {error && <ErrorMessage>{error}</ErrorMessage>}
+            <RegisteredToast show={!!showToast} onClose={handleCloseToast} />
         </>
-    )
-}
+    );
+};
 
 const RegisterIntroContainer = styled.div`
     display: flex;
@@ -127,4 +146,9 @@ const LoginLink = styled(Link)`
     margin-left: 4px;
     text-decoration: none;
     color: #D08355;
+`
+const ErrorMessage = styled.span`
+    color: #df0e0e;
+    text-align: center;
+    font-weight: 600;
 `
