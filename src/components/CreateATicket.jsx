@@ -7,10 +7,10 @@ import axios from "axios";
 export const CreateATicket = () => {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        name: "",
+        firstName: "",
         lastName: "",
         email: "",
-        password: ""
+        phoneNumber: ""
     });
 
     const handleOnChange = (e) => {
@@ -22,7 +22,12 @@ export const CreateATicket = () => {
 
     const handleOnSubmit = (e) => {
         e.preventDefault();
-        navigate("/customerDirectory");
+        axios
+            .post("http://localhost:5000/customers", formData)
+            .then((response) => {
+                navigate("/customerDirectory");
+            })
+            .catch((err) => console.log(err));
     }
 
     return (
@@ -36,7 +41,7 @@ export const CreateATicket = () => {
                 <CustomerInput
                     placeholder="First Name"
                     type="text"
-                    name="name"
+                    name="firstName"
                     onChange={handleOnChange}
                 />
                 <CustomerInput
@@ -54,7 +59,7 @@ export const CreateATicket = () => {
                 <CustomerInput
                     placeholder="Phone Number"
                     type="tel"
-                    name="phone"
+                    name="phoneNumber"
                     onChange={handleOnChange}
                 />
                 <TicketSubmitBtn type="submit">Add Customer</TicketSubmitBtn>
