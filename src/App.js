@@ -12,11 +12,13 @@ import { Register } from './components/Register';
 import Protected from './components/Protected';
 import { CreateATicket } from './components/CreateATicket';
 import axios from 'axios';
+import { CustomerDirectory } from './components/CustomerDirectory';
+import { Modal } from './components/DeleteBtnModal';
 
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const { setIsSignedIn } = useContext(AuthenticationContext)
+  const { setIsSignedIn } = useContext(AuthenticationContext);
   const navigate = useNavigate();
 
   const handleSignOut = () => {
@@ -54,7 +56,7 @@ function App() {
           <Route element={<Protected isLoading={isLoading} setIsLoading={setIsLoading} />}>
             <Route path='/profile' />
             <Route path='/createATicket' element={<CreateATicket />} />
-            <Route path='/customerDirectory' />
+            <Route path='/customerDirectory' element={<CustomerDirectory />} />
           </Route>
         </Routes>
       </StyledRightDiv>
@@ -82,6 +84,8 @@ const StyledRightDiv = styled.div`
   align-items: center;
   gap: 40px;
   border-radius: 0 8px 8px 0;
+  overflow-y: auto;
+  max-height: 642px;
 `
 
 export default App;
