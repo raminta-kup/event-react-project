@@ -64,7 +64,7 @@ export const SignIn = () => {
                     type="submit"
                 >Sign in
                 </SignInBtn>
-                {error && <SignInError>{error}</SignInError>}
+                {error && <SignInError>* {error}</SignInError>}
             </SignInForm>
             <SignInPar>Don't have an account?
                 <RegisterLink to="/register">Register</RegisterLink>
@@ -137,6 +137,7 @@ const RegisterLink = styled(Link)`
 `
 
 const SignInError = styled.div`
-    
+    color: red;
+    text-align: center;
 `
 

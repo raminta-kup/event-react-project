@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { AuthenticationContext } from "./AuthenticationContext"
 import { useContext } from "react"
 import styled from "styled-components";
@@ -38,23 +38,25 @@ const StyledNavList = styled.ul`
     padding: 0;
     margin: 0;
 `
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
     text-decoration: none;
     color: #979797;
     letter-spacing: 0.8px;
     font-size: 16px;
     font-weight: 600;
     padding: 0 40px;
-    :focus {
+    &:focus,
+    &.active {
         background-color: #FFFFFF;
         height: 160px;   
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 140px;
+        width: 100%;
         border-left: 6px solid #D08355;
         transition: all 0.3s ease-in-out;
     }
+
 `
 
 const StyledListItem = styled.li`
