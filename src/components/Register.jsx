@@ -1,8 +1,18 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { RegisteredToast } from "./RegisteredToast";
+import {
+    RegisterIntroContainer,
+    Logo,
+    RegisterTitle,
+    RegisterForm,
+    RegisterInput,
+    RegisterButton,
+    RegisterPar,
+    ErrorMessage,
+    LoginLink
+  } from "../styles/StyledRegister";
 
 export const Register = () => {
     const navigate = useNavigate();
@@ -87,68 +97,3 @@ export const Register = () => {
         </>
     );
 };
-
-const RegisterIntroContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-`
-
-const Logo = styled.img`
-    height: 88px;
-`
-
-const RegisterTitle = styled.h1`
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-
-`
-const RegisterForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    gap: 16px;
-`
-const RegisterInput = styled.input`
-    border-radius: 40px;
-    border: none;
-    background-color: #F3F3F3;
-    height: 50px;
-    font-size: 14px;
-    padding-left: 16px;
-    letter-spacing: 0.8px;
-`
-const RegisterButton = styled.button`
-    background-color: #D08355;
-    border: none;
-    border-radius: 40px;
-    height: 50px;
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: 0.8px;
-    cursor: pointer;
-`
-const RegisterPar = styled.p`
-    color: #979797;
-    font-weight: 600;
-    margin: 0;
-    letter-spacing: 0.8px;
-    font-size: 16px;
-`
-
-const LoginLink = styled(Link)`
-    letter-spacing: 0.8px;
-    margin-left: 4px;
-    text-decoration: none;
-    color: #D08355;
-`
-const ErrorMessage = styled.span`
-    color: #df0e0e;
-    text-align: center;
-    font-weight: 600;
-`

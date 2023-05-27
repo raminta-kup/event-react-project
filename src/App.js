@@ -11,6 +11,7 @@ import Protected from './components/Protected';
 import { CreateATicket } from './components/CreateATicket';
 import axios from 'axios';
 import { CustomerDirectory } from './components/CustomerDirectory';
+import { StyledContainer, StyledLeftDiv, StyledRightDiv } from "./styles/styledMain"
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -59,29 +60,5 @@ function App() {
     </StyledContainer>
   );
 }
-
-const StyledContainer = styled.div`
-  display: flex;
-  flex: 1;
-  box-sizing: border-box;
-  width: 52vw;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-`
-const StyledLeftDiv = styled.div`
-  background-color: #F3F3F3;
-  width: 26%;
-`
-const StyledRightDiv = styled.div`
-  background-color: #FFFFFF;
-  width: 74%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 40px;
-  border-radius: 0 8px 8px 0;
-  overflow-y: auto;
-  max-height: 642px;
-`
 
 export default App;

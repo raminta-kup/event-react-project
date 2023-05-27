@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import styled from "styled-components";
+import { DirectoryTitle, Table, TableHead, TableRow, DeleteBtn, TableData } from "../styles/StyledCustomerDirectory";
 import { DeleteBtnModal } from "./DeleteBtnModal";
 
 
@@ -91,35 +91,3 @@ export const CustomerDirectory = () => {
         </>
     );
 };
-
-const DirectoryTitle = styled.h1`
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-`
-const Table = styled.table`
-    border-collapse: collapse;
-    width: 95%;
-`
-const TableHead = styled.th`
-    text-align: left;
-    height: 30px;
-    padding: 0 6px;
-`
-const TableRow = styled.tr`
-    :hover {
-        background-color: #F3F3F3;
-    }
-`
-const DeleteBtn = styled.button`
-    background-color: #D08355;
-    border: none;
-    color: #ffffff;
-    padding: 6px 8px;
-    border-radius: 4px;
-    cursor: pointer;
-`
-const TableData = styled.td`
-    padding: 6px;
-`
