@@ -1,8 +1,6 @@
 import './App.css';
-import logo from './logo.svg';
-import React, { useEffect, useState, createContext, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import { PageNotFound } from './components/PageNotFound';
 import { Navigation } from './components/Navigation';
 import { AuthenticationContext } from './components/AuthenticationContext';
@@ -13,8 +11,6 @@ import Protected from './components/Protected';
 import { CreateATicket } from './components/CreateATicket';
 import axios from 'axios';
 import { CustomerDirectory } from './components/CustomerDirectory';
-import { Modal } from './components/DeleteBtnModal';
-
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
