@@ -5,7 +5,7 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { PageNotFound } from './components/PageNotFound';
 import { Navigation } from './components/Navigation';
-import { AuthenticationContext } from './components/AuthentificationContext';
+import { AuthenticationContext } from './components/AuthenticationContext';
 import styled from 'styled-components';
 import { SignIn } from './components/SignIn';
 import { Register } from './components/Register';

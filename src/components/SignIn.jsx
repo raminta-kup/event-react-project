@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import styled from "styled-components"
-import { AuthenticationContext } from "./AuthentificationContext";
+import { AuthenticationContext } from "./AuthenticationContext";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
