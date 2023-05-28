@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useEffect, useState, useContext } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { PageNotFound } from './components/PageNotFound';
 import { Navigation } from './components/Navigation';
 import { AuthenticationContext } from './components/AuthenticationContext';
@@ -15,14 +15,11 @@ import { Profile } from './components/Profile';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [currentUser, setCurrentUser] = useState(null);
   const { setIsSignedIn } = useContext(AuthenticationContext);
-  const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setIsSignedIn(false);
-    setCurrentUser(null);
   }
 
   useEffect(() => {
@@ -37,23 +34,14 @@ function App() {
         .then((response) => {
           if (response.data.id) {
             setIsSignedIn(true);
-            // console.log(response)
-            setCurrentUser(response.data);
           }
           setIsLoading(false);
         })
         .catch((error) => {
-          // console.log(error);
           setIsLoading(false);
         });
     } else {
       setIsLoading(false);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (currentUser) {
-      navigate("/profile");
     }
   }, []);
 
@@ -64,10 +52,11 @@ function App() {
       </StyledLeftDiv>
       <StyledRightDiv>
         <Routes>
+          <Route path="/" element={<Navigate to="/signIn" replace />} />
           <Route path='/signIn' element={<SignIn />} />
           <Route path='/register' element={<Register />} />
           <Route element={<Protected isLoading={isLoading} setIsLoading={setIsLoading} />}>
-            <Route path='/profile' element={<Profile currentUser={currentUser} />} />
+            <Route path='/profile' element={<Profile />} />
             <Route path='/createATicket' element={<CreateATicket />} />
             <Route path='/customerDirectory' element={<CustomerDirectory />} />
           </Route>
