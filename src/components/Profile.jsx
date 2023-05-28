@@ -1,33 +1,42 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { useEffect, useState } from "react"
 
-export const Profile = ({currentUser}) => {
-    const [employee, setEmployee] = useState(null);
+export const Profile = ({ currentUser }) => {
+  const [employee, setEmployee] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        if (currentUser) {
-          axios
-            .get(`http://localhost:5000/profile/${currentUser.id}`, {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            })
-            .then((response) => {
-              setEmployee(response.data.employee);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      }, [currentUser]);
-  
-    if (!employee) {
-      return <div>Loading...</div>;
+  useEffect(() => {
+    const fetchEmployeeData = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        const response = await axios.get(
+          `http://localhost:5000/profile/${currentUser.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setEmployee(response.data.employee);
+        setIsLoading(false);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if (currentUser) {
+      // console.log(currentUser)
+      fetchEmployeeData();
     }
-  
-    return (
-      <>
-        <h1>Welcome, {employee.firstName} {employee.lastName}!</h1>
-      </>
-    );
-}
+  }, [currentUser]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <>
+      <h1>Welcome, {employee.firstName} {employee.lastName}!</h1>
+    </>
+  );
+};

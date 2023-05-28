@@ -4,7 +4,6 @@ import { Routes, Route, useNavigate } from 'react-router-dom';
 import { PageNotFound } from './components/PageNotFound';
 import { Navigation } from './components/Navigation';
 import { AuthenticationContext } from './components/AuthenticationContext';
-import styled from 'styled-components';
 import { SignIn } from './components/SignIn';
 import { Register } from './components/Register';
 import Protected from './components/Protected';
@@ -38,35 +37,25 @@ function App() {
         .then((response) => {
           if (response.data.id) {
             setIsSignedIn(true);
+            // console.log(response)
             setCurrentUser(response.data);
-            navigate("/profile");
           }
+          setIsLoading(false);
         })
         .catch((error) => {
-          console.log(error);
+          // console.log(error);
+          setIsLoading(false);
         });
     } else {
       setIsLoading(false);
     }
   }, []);
 
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   axios.get("http://localhost:5000/token/verify", {
-  //     headers: {
-  //       authorization: "Bearer " + token
-  //     }
-  //   })
-  //     .then(response => {
-  //       if (response.data.id) {
-  //         setIsSignedIn(true);
-  //         navigate("/profile");
-  //       } else {
-
-  //       }
-  //     })
-  // }, [])
+  useEffect(() => {
+    if (currentUser) {
+      navigate("/profile");
+    }
+  }, []);
 
   return (
     <StyledContainer>
