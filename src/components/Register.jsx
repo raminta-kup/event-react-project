@@ -93,7 +93,7 @@ export const Register = () => {
                 Already have an account? <LoginLink to="/signin">Sign In</LoginLink>
             </RegisterPar>
             {error && <ErrorMessage>{error}</ErrorMessage>}
-            <RegisteredToast show={!!showToast} onClose={handleCloseToast} />
+            <RegisteredToast show={!!showToast} onClose={handleCloseToast} successMessage="Successfully Registered!" />
         </>
     );
 };
