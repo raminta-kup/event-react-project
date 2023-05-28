@@ -1,7 +1,7 @@
 import { Toast, ToastContainer } from 'react-bootstrap';
 import styled from 'styled-components';
 
-export const RegisteredToast = ({show, onClose}) => {
+export const RegisteredToast = ({show, onClose, successMessage}) => {
     return (
         <ToastContainer position='center'>
             <Toast onClose={onClose} show={show} delay={3000} autohide >
@@ -12,7 +12,7 @@ export const RegisteredToast = ({show, onClose}) => {
                         alt=""
                     />
                 </ToastHeader>
-                <ToastBody style={{ color: "black" }}>Successfully Registered </ToastBody>
+                <ToastBody style={{ color: "black" }}>{successMessage}</ToastBody>
             </Toast>
         </ToastContainer>
     )

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"
 import axios from "axios";
+import { RegisteredToast } from "./RegisteredToast";
 import {
     Logo,
     TicketIntroContainer,
@@ -14,7 +14,7 @@ import {
 
 
 export const CreateATicket = () => {
-    const navigate = useNavigate();
+    const [showToast, setShowToast] = useState(false);
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -41,10 +41,16 @@ export const CreateATicket = () => {
         axios
             .post("http://localhost:5000/customers", formData)
             .then((response) => {
-                navigate("/customerDirectory");
+                setShowToast(true);
+                setError("");
+
             })
             .catch((err) => console.log(err));
     }
+
+    const handleCloseToast = () => {
+        setShowToast(false);
+    };
 
     return (
         <>
@@ -81,6 +87,7 @@ export const CreateATicket = () => {
                 <TicketSubmitBtn type="submit">Add Customer</TicketSubmitBtn>
             </CustomerForm>
             {<ErrorMessage>{error}</ErrorMessage>}
+            <RegisteredToast show={!!showToast} onClose={handleCloseToast} successMessage="Successfully Added Customer!" />
         </>
     )
 }

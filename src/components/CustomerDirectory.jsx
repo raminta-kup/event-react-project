@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { DirectoryTitle, Table, TableHead, TableRow, DeleteBtn, TableData } from "../styles/StyledCustomerDirectory";
+import { DirectoryTitle, Table, TableHead, TableRow, DeleteBtn, TableData, Logo, DirectoryIntroContainer, DirectoryContainer } from "../styles/StyledCustomerDirectory";
 import { DeleteBtnModal } from "./DeleteBtnModal";
 
 
@@ -58,36 +58,41 @@ export const CustomerDirectory = () => {
 
     return (
         <>
-            <DirectoryTitle>Customer Directory</DirectoryTitle>
-            <Table>
-                <thead>
-                    <tr>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Surname</TableHead>
-                        <TableHead>Email</TableHead>
-                        <TableHead>Phone Number</TableHead>
-                    </tr>
-                </thead>
-                <tbody>
-                    {customers.map((customer) => (
-                        <TableRow key={customer.id}>
-                            <TableData>{customer.firstName}</TableData>
-                            <TableData>{customer.lastName}</TableData>
-                            <TableData>{customer.email}</TableData>
-                            <TableData>{customer.phoneNumber}</TableData>
-                            <TableData>
-                                <DeleteBtn onClick={() => handleDelete(customer.id)}>Delete</DeleteBtn>
-                            </TableData>
-                        </TableRow>
-                    ))}
-                </tbody>
-            </Table>
-            
-            <DeleteBtnModal
-                modalShow={showModal}
-                close={handleModalClose}
-                confirmation={handleModalConfirmation}
-            />
+            <DirectoryContainer>
+                <DirectoryIntroContainer>
+                    <Logo src="./glasslogo.png"></Logo>
+                    <DirectoryTitle>Customer Directory</DirectoryTitle>
+                </DirectoryIntroContainer>
+                <Table>
+                    <thead>
+                        <tr>
+                            <TableHead>Name</TableHead>
+                            <TableHead>Surname</TableHead>
+                            <TableHead>Email</TableHead>
+                            <TableHead>Phone Number</TableHead>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {customers.map((customer) => (
+                            <TableRow key={customer.id}>
+                                <TableData>{customer.firstName}</TableData>
+                                <TableData>{customer.lastName}</TableData>
+                                <TableData>{customer.email}</TableData>
+                                <TableData>{customer.phoneNumber}</TableData>
+                                <TableData>
+                                    <DeleteBtn onClick={() => handleDelete(customer.id)}>Delete</DeleteBtn>
+                                </TableData>
+                            </TableRow>
+                        ))}
+                    </tbody>
+                </Table>
+
+                <DeleteBtnModal
+                    modalShow={showModal}
+                    close={handleModalClose}
+                    confirmation={handleModalConfirmation}
+                />
+            </DirectoryContainer>
         </>
     );
 };
