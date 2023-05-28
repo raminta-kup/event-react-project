@@ -33,7 +33,7 @@ export const CreateATicket = () => {
     const handleOnSubmit = (e) => {
         e.preventDefault();
 
-        if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
+        if (!formData.firstName || !formData.lastName || !formData.email || !formData.phoneNumber) {
             setError("Something went wrong. Please try again");
             return;
         }

@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
-import styled from "styled-components"
 import { AuthenticationContext } from "./AuthenticationContext";
 import { useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import axios from "axios";
+import { SignInIntroductionContainer, Logo, SignInHeading, SignInPar, SignInForm, SignInInput, SignInBtn, SignInError, RegisterLink } from "../styles/StyledSignIn";
 
 
 export const SignIn = () => {
@@ -32,7 +31,6 @@ export const SignIn = () => {
                     localStorage.setItem("token", response.data.token);
                     setIsSignedIn(true);
                     navigate("/profile");
-                    console.log(response.data.message)
                 } else {
                     setError(response.data.message);
                 }
@@ -73,72 +71,4 @@ export const SignIn = () => {
         </>
     )
 }
-
-const SignInIntroductionContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-`
-
-const Logo = styled.img`
-    height: 88px;
-`
-
-const SignInHeading = styled.h1`
-    margin: 0;
-    font-size: 22px;
-    font-weight: 600;
-    letter-spacing: 0.8px;
-`
-
-const SignInPar = styled.p`
-    color: #979797;
-    font-weight: 600;
-    margin: 0;
-    letter-spacing: 0.8px;
-    font-size: 16px;
-`
-
-const SignInForm = styled.form`
-    display: flex;
-    flex-direction: column;
-    width: 60%;
-    gap: 16px;
-`
-
-const SignInInput = styled.input`
-    border-radius: 40px;
-    border: none;
-    background-color: #F3F3F3;
-    height: 50px;
-    font-size: 14px;
-    padding-left: 16px;
-    letter-spacing: 0.8px;
-`
-
-const SignInBtn = styled.button`
-    background-color: #D08355;
-    border: none;
-    border-radius: 40px;
-    height: 50px;
-    color: #FFFFFF;
-    font-weight: 600;
-    font-size: 16px;
-    letter-spacing: 0.8px;
-    cursor: pointer;
-`
-
-const RegisterLink = styled(Link)`
-    letter-spacing: 0.8px;
-    margin-left: 4px;
-    text-decoration: none;
-    color: #D08355;
-`
-
-const SignInError = styled.div`
-    color: red;
-    text-align: center;
-`
 
