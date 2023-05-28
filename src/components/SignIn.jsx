@@ -32,6 +32,7 @@ export const SignIn = () => {
                     localStorage.setItem("token", response.data.token);
                     setIsSignedIn(true);
                     navigate("/profile");
+                    console.log(response.data.message)
                 } else {
                     setError(response.data.message);
                 }

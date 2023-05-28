@@ -12,33 +12,61 @@ import { CreateATicket } from './components/CreateATicket';
 import axios from 'axios';
 import { CustomerDirectory } from './components/CustomerDirectory';
 import { StyledContainer, StyledLeftDiv, StyledRightDiv } from "./styles/styledMain"
+import { Profile } from './components/Profile';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [currentUser, setCurrentUser] = useState(null);
   const { setIsSignedIn } = useContext(AuthenticationContext);
   const navigate = useNavigate();
 
   const handleSignOut = () => {
     localStorage.removeItem("token");
     setIsSignedIn(false);
+    setCurrentUser(null);
   }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    axios.get("http://localhost:5000/token/verify", {
-      headers: {
-        authorization: "Bearer " + token
-      }
-    })
-      .then(response => {
-        if (response.data.id) {
-          setIsSignedIn(true);
-          navigate("/profile");
-        } else {
+    if (token) {
+      axios
+        .get("http://localhost:5000/token/verify", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          if (response.data.id) {
+            setIsSignedIn(true);
+            setCurrentUser(response.data);
+            navigate("/profile");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
 
-        }
-      })
-  }, [])
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   axios.get("http://localhost:5000/token/verify", {
+  //     headers: {
+  //       authorization: "Bearer " + token
+  //     }
+  //   })
+  //     .then(response => {
+  //       if (response.data.id) {
+  //         setIsSignedIn(true);
+  //         navigate("/profile");
+  //       } else {
+
+  //       }
+  //     })
+  // }, [])
 
   return (
     <StyledContainer>
@@ -47,14 +75,14 @@ function App() {
       </StyledLeftDiv>
       <StyledRightDiv>
         <Routes>
-          <Route path='*' element={<PageNotFound />} />
           <Route path='/signIn' element={<SignIn />} />
           <Route path='/register' element={<Register />} />
           <Route element={<Protected isLoading={isLoading} setIsLoading={setIsLoading} />}>
-            <Route path='/profile' />
+            <Route path='/profile' element={<Profile currentUser={currentUser} />} />
             <Route path='/createATicket' element={<CreateATicket />} />
             <Route path='/customerDirectory' element={<CustomerDirectory />} />
           </Route>
+          <Route path='*' element={<PageNotFound />} />
         </Routes>
       </StyledRightDiv>
     </StyledContainer>
